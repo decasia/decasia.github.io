@@ -40,14 +40,15 @@ App.ModalPresenter = Ember.Object.extend
 You use it like this from your controller. (I'll leave out the actual modal views themselves, since that part is pretty much stock Ember. Note that my modals have a `modalContent` object that they use to display data.)
 
 {% highlight coffeescript %}
-launchTaskDialog: (task) ->
-  modalContent = App.ModalPresenter.create
-    parent: task
-    allowedFields: App.FieldsForModal.AssignTask
-  @send 'openModal', 'assignTask', modalContent
+App.TaskIndexController = Ember.ArrayController.extend
+  launchTaskDialog: (task) ->
+    modalContent = App.ModalPresenter.create
+      parent: task
+      allowedFields: ['assignee']  # or whatever fields you need
+    @send 'openModal', 'assignTask', modalContent
 
-updateTaskDialog: (modalView) ->
-  modalView.get('modalContent').saveFieldsToParent()
-  modalView.send 'close'
+  updateTaskDialog: (modalView) ->
+    modalView.get('modalContent').saveFieldsToParent()
+    modalView.send 'close'
 {% endhighlight %}
 
