@@ -81,4 +81,4 @@ a href=attachment.downloadPath
 
 If you set up a download route in your Rails routes that points to `attachments#show`, things will work perfectly.
 
-Unfortunately, uploads are slightly less straightforward. I'll cover them later.
+Unfortunately, uploads are slightly less straightforward. [EDIT: The approach to uploading [described two years ago by Hedtek](http://devblog.hedtek.com/2012/04/brief-foray-into-html5-file-apis.html) is still basically correct, and is recommended.]
