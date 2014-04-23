@@ -1,2 +1,9 @@
-name: Your New Jekyll Site
+name: notes on web applications
+url: http://decasia.github.io
+description: "from the humanities IT group at the university of chicago"
+
+permalink: /:year/:month/:day/:title/
+paginate: 10
 pygments: true
+
+exclude: ['README.md', 'Gemfile.lock', 'Gemfile', 'Rakefile']
