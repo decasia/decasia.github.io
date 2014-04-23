@@ -15,7 +15,7 @@ But what if you want to have a cancel button on your modal that aborts the local
 
 There are various ways you can do this. You can use the [rollback](http://emberjs.com/api/data/classes/DS.Model.html#method_rollback) method from Ember Data to handle a cancel button, but it's not really the right tool for the job, because it rolls back *all* changes to your `record`, not just the ones made most recently in a modal dialog. You can make a duplicate of `record` and bind the modal to that, but then you would need to figure out how to merge your changes back to `record` when the user clicks OK. You could wish for more intricate versioning or undo features... but those aren't really built into Ember Data at this point.
 
-Instead of any of those options, I ended up introducing a new intermediate class to bind to in my modals. Call it `ModalPresenter`. It understands that it has a backing object, which I'll call `parent`; it has a list of fields that it should copy from the parent object and make available to the modal dialog; and it has a `saveChangesToParent` method that we can invoke when a user clicks OK.
+Instead of any of those options, I ended up introducing a new intermediate class to bind to in my modals. Call it `ModalPresenter`. It understands that it has a backing object, which I'll call `parent`; it has a list of fields that it should copy from the parent object and make available to the modal dialog; and it has a `saveToParent` method that we can invoke when a user clicks OK.
 
 Here's the code:
 
@@ -30,7 +30,7 @@ App.ModalPresenter = Ember.Object.extend
     @allowedFields.forEach (field) =>
       @set field, parent.get(field)
 
-  saveFieldsToParent: ->
+  saveToParent: ->
     parent = @get('parent')
     @allowedFields.forEach( (field) ->
       parent.set field, @get(field)
@@ -48,7 +48,6 @@ App.TaskIndexController = Ember.ArrayController.extend
     @send 'openModal', 'assignTask', modalContent
 
   updateTaskDialog: (modalView) ->
-    modalView.get('modalContent').saveFieldsToParent()
+    modalView.get('modalContent').saveToParent()
     modalView.send 'close'
 {% endhighlight %}
-
