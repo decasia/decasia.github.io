@@ -25,16 +25,13 @@ Here's the code:
 
 App.ModalPresenter = Ember.Object.extend
   init: ->
-    parent = @get 'parent'
-    allowedFields = @get 'allowedFields'
     @allowedFields.forEach (field) =>
-      @set field, parent.get(field)
+      @set field, @parent.get(field)
 
   saveToParent: ->
-    parent = @get('parent')
-    @allowedFields.forEach( (field) ->
-      parent.set field, @get(field)
-    , @)
+    @allowedFields.forEach (field) =>
+      @parent.set field, @get(field)
+
 {% endhighlight %}
 
 You use it like this from your controller. (I'll leave out the actual modal views themselves, since that part is pretty much stock Ember. Note that my modals have a `modalContent` object that they use to display data.)
