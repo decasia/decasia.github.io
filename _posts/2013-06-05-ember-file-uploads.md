@@ -5,6 +5,10 @@ date:   2013-06-05 17:06:25
 categories: ember rails file-handling
 ---
 
+EDIT: This was something I wrote after a week or two of using Ember. It's pretty low-level, but I'll leave it for the sake of posterity.
+
+***
+
 ## Preface
 
 I've recently started testing Ember on an internal web application we're building. Our apps were previously in more vanilla Ruby on Rails, but complicated HTML forms were sometimes slow to render, and as I found myself writing large amounts of jQuery to partially load content through ad hoc AJAX, things started to look ugly and maintainable, and it became increasingly obvious that a more rigorous client-side framework was the way to go. At RailsConf this year I heard Yehuda Katz criticize the view that Javascript is just something you "sprinkle" on your Rails app, without much of a theory of how Javascript should be structured -- I'm trying to take that to heart.
@@ -56,9 +60,9 @@ And then you may want to build an Ember controller (remembering that Ember contr
 
 {% highlight coffeescript %}
 App.AttachmentController = Ember.ObjectController.extend
-  downloadPath: (-&gt;
+  downloadPath: (->
     fileName = @get 'electronicDocumentFileName'
-    if fileName &amp;&amp; fileName.length
+    if fileName and fileName.length
       id = @get 'id'
       App.RailsRootPath + "/download/#{id}"
     else
